@@ -1,0 +1,71 @@
+html {
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: auto;
+    width: 50%;
+    color: gray;
+}
+
+ul {
+    list-style: none;
+    /*padding: 0;*/
+    /*margin: 0;*/
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+header h1 {
+    display: inline-block;
+}
+
+header .button-update-geo {
+    height: 50px;
+    width: 200px;
+    margin: auto 0 auto 0;
+    border: none;
+    border-radius: 10px;
+    display: inline-block;
+    text-decoration: none;
+    color: gray;
+    transition-duration: 0.4s;
+    outline: none;
+}
+
+header .button-update-geo:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+.temperature::after {
+    content: '\02103';
+}
+
+.weather-parameters ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.weather-parameters li {
+    background-color: gray;
+    color: white;
+}
+
+.weather-parameters li .title {
+    font-weight: bold;
+}
+
+.weather-parameters li .content {
+    text-align: right;
+}
+
+.current-weather-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+
