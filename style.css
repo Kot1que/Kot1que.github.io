@@ -214,11 +214,17 @@ header .button-update-geo:hover {
 
 .cities .city {
     width: 45%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .cities .city-parameters {
     width: 100%;
     padding: 0;
+    margin: 5px 0 5px 0;
+    height: 100%;
 }
 
 .delete-city-button {
@@ -339,6 +345,8 @@ header .button-update-geo:hover {
 
     .cities .city {
         width: 100%;
+        margin-top: 30px;
+        height: unset;
     }
 
     .cities {
@@ -357,6 +365,15 @@ header .button-update-geo:hover {
         font-size: 1.5rem;
     }
 
+    h4 {
+        font-size: 7vw;
+        margin: auto 0;
+    }
+
+    .city .temperature {
+        font-size: 8vw;
+    }
+
     header .button-update-geo {
         font-size: 1.5rem;
         width: 20vw;
@@ -364,5 +381,13 @@ header .button-update-geo:hover {
 
     header .button-update-geo span {
         display: none;
+    }
+
+    .cities .city {
+        margin-top: 15px;
+    }
+
+    .cities .city-parameters {
+        margin: 0 0 5px 0;
     }
 }
