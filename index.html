@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Weather</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
@@ -18,12 +20,17 @@
 <body>
     <header>
         <h1>Weather forecast</h1>
-        <button id="update-geo" class="button-update-geo">Update location</button>
+        <button id="update-geo" class="button-update-geo">
+            <i class="fas fa-sync-alt"></i>
+            <span>Update location</span>
+        </button>
     </header>
     <main>
         <section class="current-weather-container">
-            <div class="loader" id="main-city-loader"></div>
-            <div class="main-city-wrapper" id="main-city-wrapper">
+            <div class="loader-wrapper" id="main-city-loader">
+                <div class="loader"></div>
+            </div>
+            <article class="main-city-wrapper" id="main-city-wrapper">
                 <div class="info">
                     <h3 class="main-city city-name">Saint Petersburg</h3>
                     <div class="main-city temperature">
@@ -31,7 +38,7 @@
                         <span>18</span>
                     </div>
                 </div>
-                <ul class="main-city-parameters">
+                <ul class="city-parameters">
                     <li class="wind">
                         <span class="title">Wind</span>
                         <span class="content">loading...</span>
@@ -53,42 +60,114 @@
                         <span class="content">loading...</span>
                     </li>
                 </ul>
-            </div>
+            </article>
         </section>
 
         <section>
-            <div class="favourites-header">
+            <header class="favourites-header">
                 <h1>
                     Favourites
                 </h1>
                 <div class="favourites-controls-wrapper">
-                    <input type="text" placeholder="Add new city">
-                    <button class="add-city-button">+</button>
+                    <label>
+                        <input type="text" placeholder="Add new city">
+                    </label>
+                    <button class="add-city-button"><i class="fas fa-plus"></i></button>
                 </div>
-            </div>
+            </header>
+            <section class="cities">
+                <article class="city">
+                    <header class="city-info">
+                        <h4>Moscow</h4>
+                        <div class="temperature">
+                            <span>5</span>
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <button class="delete-city-button">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </header>
+                    <ul class="city-parameters">
+                        <li class="wind">
+                            <span class="title">Wind</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="clouds">
+                            <span class="title">Clouds</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="pressure">
+                            <span class="title">Pressure</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="humidity">
+                            <span class="title">Humidity</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="coordinates">
+                            <span class="title">Coordinates</span>
+                            <span class="content">loading...</span>
+                        </li>
+                    </ul>
+                </article>
+                <div class="city">
+                    <header class="city-info">
+                        <h4>Moscow</h4>
+                        <div class="temperature">
+                            <span>5</span>
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <button class="delete-city-button">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </header>
+                    <ul class="city-parameters">
+                        <li class="wind">
+                            <span class="title">Wind</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="clouds">
+                            <span class="title">Clouds</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="pressure">
+                            <span class="title">Pressure</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="humidity">
+                            <span class="title">Humidity</span>
+                            <span class="content">loading...</span>
+                        </li>
+                        <li class="coordinates">
+                            <span class="title">Coordinates</span>
+                            <span class="content">loading...</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
         </section>
     </main>
 
     <template id="weather-parameters" class="weather-parameters">
-        <ul>
+        <ul class="city-parameters">
             <li class="wind">
                 <span class="title">Wind</span>
                 <span class="content">loading...</span>
             </li>
             <li class="clouds">
-                <span class="title">Wind</span>
+                <span class="title">Clouds</span>
                 <span class="content">loading...</span>
             </li>
             <li class="pressure">
-                <span class="title">Wind</span>
+                <span class="title">Pressure</span>
                 <span class="content">loading...</span>
             </li>
             <li class="humidity">
-                <span class="title">Wind</span>
+                <span class="title">Humidity</span>
                 <span class="content">loading...</span>
             </li>
             <li class="coordinates">
-                <span class="title">Wind</span>
+                <span class="title">Coordinates</span>
                 <span class="content">loading...</span>
             </li>
         </ul>

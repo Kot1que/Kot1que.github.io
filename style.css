@@ -11,6 +11,7 @@ body {
 
 ul {
     list-style: none;
+    padding: 0;
 }
 
 header {
@@ -18,10 +19,17 @@ header {
     justify-content: space-between;
 }
 
-header h1 {
+h1 {
     display: inline-block;
-    font-size: 3rem;
+    font-size: 2.7rem;
     font-weight: 500;
+}
+
+h4 {
+    display: inline-block;
+    font-size: 2.4rem;
+    font-weight: 400;
+    margin: 0;
 }
 
 header .button-update-geo {
@@ -47,18 +55,24 @@ header .button-update-geo:hover {
     height: 250px;
 }
 
-.temperature::after {
+.temperature span:after {
     content: '\02103';
 }
 
 .loader {
-    margin: auto;
     border: 16px solid #f3f3f3;
     border-top: 16px solid gray;
     border-radius: 50%;
     width: 60px;
     height: 60px;
     animation: spin 2s linear infinite;
+}
+
+.loader-wrapper {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
 }
 
 @keyframes spin {
@@ -80,12 +94,12 @@ header .button-update-geo:hover {
 }
 
 .main-city.city-name {
-    font-size: 2.5rem;
+    font-size: 2.1rem;
     font-weight: 600;
 }
 
 .main-city.temperature {
-    font-size: 7rem;
+    font-size: 5vw;
     font-weight: 500;
     display: flex;
     justify-content: space-between;
@@ -97,16 +111,15 @@ header .button-update-geo:hover {
     margin-right: 50px;
 }
 
-.main-city-parameters {
+.city-parameters {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     width: 50%;
 }
 
-.main-city-parameters li {
+.city-parameters li {
     background-color: #b3b3b3;
-    width: 100%;
     height: 25px;
     font-size: 1.2rem;
     display: flex;
@@ -114,17 +127,17 @@ header .button-update-geo:hover {
     padding: 5px;
 }
 
-.main-city-parameters li span {
+.city-parameters li span {
     display: inline-block;
     margin: auto 5px auto 5px;
 }
 
-.main-city-parameters li .title {
+.city-parameters li .title {
     color: white;
     font-weight: bold;
 }
 
-.main-city-parameters li .content {
+.city-parameters li .content {
     color: white;
 }
 
@@ -135,8 +148,6 @@ header .button-update-geo:hover {
 
 .favourites-header h1 {
     display: inline-block;
-    font-size: 2.5rem;
-    font-weight: 500;
 }
 
 .favourites-controls-wrapper {
@@ -192,4 +203,166 @@ header .button-update-geo:hover {
 .add-city-button:hover {
     background-color: lightgray;
     color: black;
+}
+
+.cities {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cities .city {
+    width: 45%;
+}
+
+.cities .city-parameters {
+    width: 100%;
+    padding: 0;
+}
+
+.delete-city-button {
+    height: 40px;
+    width: 40px;
+    margin: auto 0 auto 0;
+    border: none;
+    border-radius: 50px;
+    display: inline-block;
+    text-decoration: none;
+    color: gray;
+    transition-duration: 0.4s;
+    outline: none;
+    font-size: 1.5rem;
+}
+
+.delete-city-button:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+.city-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.city-info .temperature {
+    font-size: 2.5rem;
+    margin: auto 0 auto 0;
+}
+
+.city-info .temperature i {
+    margin-left: 10px;
+}
+
+@media(max-width: 1500px) {
+    body {
+        width: 75%;
+    }
+}
+
+@media(max-width: 900px) {
+    html {
+        font-size: 18px;
+    }
+
+    body {
+        width: 90%;
+    }
+
+    h1 {
+        font-size: 5vw;
+    }
+
+    .main-city-wrapper {
+        flex-direction: column;
+    }
+
+    .current-weather-container {
+        height: unset;
+    }
+
+    .main-city.city-name {
+        margin-top: 0;
+        font-size: 8vw;
+    }
+
+    .main-city.temperature {
+        display: flex;
+        font-size: 20vw;
+    }
+
+    .main-city.temperature i {
+        margin: auto 0 auto 0;
+    }
+
+    header .button-update-geo {
+        font-size: 1rem;
+    }
+
+    .favourites-header {
+        flex-direction: column;
+    }
+
+    .city-parameters {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+    }
+
+    .city-parameters li {
+        margin-top: 15px;
+        width: unset;
+        padding: 12px;
+    }
+
+    .favourites-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .favourites-controls-wrapper input {
+        height: 40px;
+        margin-right: 10px;
+        font-size: 1.2rem;
+        width: calc(100% - 100px);
+    }
+
+    .add-city-button {
+        height: 60px;
+        width: 60px;
+        margin: auto 0 auto 0;
+        font-size: 1.5rem;
+    }
+
+    .cities .city {
+        width: 100%;
+    }
+
+    .cities {
+        flex-direction: column;
+        margin-top: 30px;
+    }
+}
+
+@media(max-width: 460px) {
+    h1 {
+        font-size: 7vw;
+    }
+
+    h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+    }
+
+    header .button-update-geo {
+        font-size: 1.5rem;
+        width: 20vw;
+    }
+
+    header .button-update-geo span {
+        display: none;
+    }
 }
