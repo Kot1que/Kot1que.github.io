@@ -210,14 +210,15 @@ header .button-update-geo:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .cities .city {
-    width: 45%;
     height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex-basis: 45%;
 }
 
 .cities .city-parameters {
