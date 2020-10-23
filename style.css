@@ -221,6 +221,10 @@ header .button-update-geo:hover {
     flex-basis: 45%;
 }
 
+.cities .city:nth-child(n + 3) {
+    margin-top: 20px;
+}
+
 .cities .city-parameters {
     width: 100%;
     padding: 0;
@@ -260,6 +264,7 @@ header .button-update-geo:hover {
 .city-info .temperature i {
     margin-left: 10px;
 }
+
 
 @media(max-width: 1500px) {
     body {
@@ -352,6 +357,10 @@ header .button-update-geo:hover {
 
     .cities {
         flex-direction: column;
+        margin-top: 30px;
+    }
+
+    .cities .city:nth-child(n + 3) {
         margin-top: 30px;
     }
 }
