@@ -1,7 +1,7 @@
 class OpenWeatherApi {
     constructor(token) {
         this.apiToken = token;
-        this.baseUrl = "http://api.openweathermap.org/data/2.5/weather?units=metric&"
+        this.baseUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&"
     }
 
     async getWeatherByCityName(city) {
