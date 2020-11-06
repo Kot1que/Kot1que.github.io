@@ -49,8 +49,7 @@ function enableMainCityLoader() {
 
 function updateMainCity() {
     enableMainCityLoader();
-    [latitude, longitude] = updateGeo();
-    loadMainCity(latitude, longitude);
+    updateGeo();
 }
 
 function updateGeo() {
@@ -60,11 +59,10 @@ function updateGeo() {
     let longitude = 30.3084;
 
     geo.getCurrentPosition(position => {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
+        loadMainCity(position.coords.latitude, position.coords.longitude);
+    }, () => {
+        loadMainCity(latitude, longitude);
     })
-
-    return [latitude, longitude]
 }
 
 function addCityClick() {
