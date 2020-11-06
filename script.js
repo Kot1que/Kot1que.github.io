@@ -85,6 +85,11 @@ function addCityClick(event) {
 }
 
 function addCityByName(cityName, checkLocalStorage = true) {
+    if (checkLocalStorage && existsInLocalStorage(cityName)) {
+        alert("City is already exists");
+        return;
+    }
+
     let tmpl = document.querySelector("#weather-template");
     let cities = document.querySelector(".cities");
     let clone = document.importNode(tmpl.content, true);
@@ -106,7 +111,7 @@ function addCityByName(cityName, checkLocalStorage = true) {
             return;
         }
 
-        localStorage.setItem("city_" + data["id"], data["name"]);
+        localStorage.setItem("city_" + data["id"], data["name"].toLowerCase());
         document.getElementById("add-city-input").textContent = "";
 
         createdCity.id = "city_" + data["id"];
@@ -169,6 +174,21 @@ function loadCitiesFromLocalStorage() {
         }
         addCityByName(localStorage.getItem(key), false);
     }
+}
+
+function existsInLocalStorage(cityName) {
+    cityName = cityName.toLowerCase();
+    for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        if (!key.startsWith("city_")) {
+            continue;
+        }
+        if (localStorage.getItem(key) === cityName) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function degToDirection(num) {
