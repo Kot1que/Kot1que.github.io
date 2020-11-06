@@ -4,36 +4,48 @@ class OpenWeatherApi {
         this.baseUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&"
     }
 
-    async getWeatherByCityName(city) {
-        let response = await fetch(this.baseUrl + "q=" + city + "&appid=" + this.apiToken).catch();
-
-        if (response.ok) {
-            return await response.json();
-        }
-
-        return null;
+    timeout(ms, promise) {
+        return new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                reject(new Error("timeout"))
+            }, ms)
+            promise.then(resolve, reject)
+        })
     }
 
-    async getWeatherByCoordinates(latitude, longitude) {
-        let response = await fetch(
-            this.baseUrl + "lon=" + longitude + "&lat=" + latitude + "&appid=" + this.apiToken
-        ).catch();
+    getWeatherByCityName(city) {
+        return this.timeout(
+            3000,
+            fetch(this.baseUrl + "q=" + city + "&appid=" + this.apiToken)
+        ).catch(function(error) {
+            alert("Network failure");
+            return Promise.reject(error);
+        }).then(function(response) {
+            return response.json();
+        })
+    }
 
-        if (response.ok) {
-            return response.json()
-        }
-
-        return null;
+    getWeatherByCoordinates(latitude, longitude) {
+        this.timeout(
+            3000,
+            fetch(this.baseUrl + "lon=" + longitude + "&lat=" + latitude + "&appid=" + this.apiToken)
+        ).then(function(response) {
+            return response.json();
+        }).catch(function() {
+            alert("Network failure");
+        }).then(function (json) {
+            loadMainCity(json)
+        })
     }
 }
 
 api = new OpenWeatherApi("17687eb6fa5e965d701ccd333cb1d32d");
 
 document.body.onload = function() {
-    document.querySelector("#add-city-button").addEventListener("click", addCityClick);
-    document.querySelector("#update-geo-button").addEventListener("click", updateMainCity);
+    document.querySelector("#add-city-form").addEventListener("submit", event => addCityClick(event));
+    document.querySelector("#update-geo-button").addEventListener("click", updateGeo);
 
-    updateMainCity();
+    updateGeo();
     loadCitiesFromLocalStorage();
 }
 
@@ -47,26 +59,23 @@ function enableMainCityLoader() {
     document.querySelector("#main-city-loader").style.display = "flex";
 }
 
-function updateMainCity() {
-    enableMainCityLoader();
-    updateGeo();
-}
-
 function updateGeo() {
+    enableMainCityLoader();
     let geo = navigator.geolocation;
     // ITMO Kronverksky 49
     let latitude = 59.9571;
     let longitude = 30.3084;
 
     geo.getCurrentPosition(position => {
-        loadMainCity(position.coords.latitude, position.coords.longitude);
+        api.getWeatherByCoordinates(position.coords.latitude, position.coords.longitude);
     }, () => {
-        loadMainCity(latitude, longitude);
+        api.getWeatherByCoordinates(latitude, longitude);
     })
 }
 
-function addCityClick() {
-    let cityName = document.querySelector("#add-city-input").value;
+function addCityClick(event) {
+    event.preventDefault();
+    let cityName = event.target.querySelector("input").value;
     if (!cityName || cityName.trim().length === 0) {
         alert("City name is empty");
         return;
@@ -85,7 +94,7 @@ function addCityByName(cityName, checkLocalStorage = true) {
     let response = api.getWeatherByCityName(cityName);
 
     response.then(data => {
-        if (data === null) {
+        if (data["cod"] !== 200) {
             createdCity.remove();
             alert("City not found");
             return;
@@ -93,6 +102,7 @@ function addCityByName(cityName, checkLocalStorage = true) {
 
         if (checkLocalStorage && localStorage.getItem("city_" + data["id"]) !== null) {
             createdCity.remove();
+            alert("City is already exists");
             return;
         }
 
@@ -107,6 +117,8 @@ function addCityByName(cityName, checkLocalStorage = true) {
         createdCity.querySelector(".loader-wrapper").style.display = "none";
         createdCity.querySelector(".city").style.display = "unset";
         createdCity.querySelector(".delete-city-button").addEventListener("click", deleteCity);
+    }).catch(() => {
+        createdCity.remove();
     });
 
     document.querySelector("#add-city-input").value = "";
@@ -134,18 +146,14 @@ function fillCity(data, root) {
         .textContent = data["coord"]["lon"] + ", " + data["coord"]["lat"];
 }
 
-function loadMainCity(latitude, longitude) {
-    let response = api.getWeatherByCoordinates(latitude, longitude);
-
-    if (response === null) {
+function loadMainCity(json) {
+    if (json === null) {
         alert("Error");
         return;
     }
 
-    response.then(data => {
-        fillCity(data, document.getElementById("main-city-wrapper"))
-        removeMainCityLoader();
-    })
+    fillCity(json, document.getElementById("main-city-wrapper"))
+    removeMainCityLoader();
 }
 
 function deleteCity() {
